@@ -1,5 +1,5 @@
 //
-//  MainTabController.swift
+//  NotificationsController.swift
 //  TwitterClone
 //
 //  Created by Yaz Burrell on 1/18/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabController: UITabBarController {
+class NotificationsController: UIViewController {
     
     //MARK: - Properties
     
@@ -20,9 +20,4 @@ class MainTabController: UITabBarController {
     }
     
     //MARK: - Helpers
-    
-    func configureViewControllers() {
-        
-    }
-
 }
