@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainTabController.swift
 //  TwitterClone
 //
 //  Created by Yaz Burrell on 1/18/22.
@@ -7,13 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainTabController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("hello")
-    }
+        
+        view.backgroundColor = .blue
 
+    }
+    
 
 }
-
