@@ -76,7 +76,8 @@ class LoginController: UIViewController {
     }
     
     @objc func handleShowSignUp() {
-        print("Show sign up page")
+        let controller = RegistrationController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     
