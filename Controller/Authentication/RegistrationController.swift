@@ -11,6 +11,8 @@ class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
+    private let imagePicker = UIImagePickerController()
+    
     private let addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
@@ -99,7 +101,7 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handleAddProfilePhoto() {
-         print("add photo")
+         present(imagePicker, animated: true, completion: nil)
     }
     
     @objc func handleRegistration() {
