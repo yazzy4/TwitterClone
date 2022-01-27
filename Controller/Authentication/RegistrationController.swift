@@ -114,6 +114,9 @@ class RegistrationController: UIViewController {
     func configureUI() {
         view.backgroundColor = .twitterBlue
         
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
         view.addSubview(addPhotoButton)
         addPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
         addPhotoButton.setDimensions(width: 128, height: 128)
@@ -132,5 +135,23 @@ class RegistrationController: UIViewController {
         
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,                                 right: view.rightAnchor, paddingTop: 32, paddingLeft: 40, paddingRight: 40)
+    }
+}
+
+// MARK: -  UIImagePickerControllerDelegate
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else { return }
+        
+        addPhotoButton.layer.cornerRadius = 128 / 2
+        addPhotoButton.layer.masksToBounds = true
+        addPhotoButton.imageView?.contentMode = .scaleAspectFill
+        addPhotoButton.imageView?.clipsToBounds = true
+        
+        self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        dismiss(animated: true, completion: nil)
     }
 }
