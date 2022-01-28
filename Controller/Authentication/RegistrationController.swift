@@ -149,6 +149,8 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         addPhotoButton.layer.masksToBounds = true
         addPhotoButton.imageView?.contentMode = .scaleAspectFill
         addPhotoButton.imageView?.clipsToBounds = true
+        addPhotoButton.layer.borderColor = UIColor.white.cgColor
+        addPhotoButton.layer.borderWidth = 2.5
         
         self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
