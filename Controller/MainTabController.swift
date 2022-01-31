@@ -57,6 +57,7 @@ class MainTabController: UITabBarController {
     func logUserOut() {
         do {
             try Auth.auth().signOut()
+            print("DEBUG: Dig log user out")
         } catch {
             print("DEBUG: Failed to sign out with error: \(error.localizedDescription)")
         }
