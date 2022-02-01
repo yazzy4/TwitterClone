@@ -80,6 +80,13 @@ class LoginController: UIViewController {
                 print("DEBUG: Error logging in \(error.localizedDescription)")
                 return
             }
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+                
+            self.dismiss(animated: true, completion: nil)
             print("DEBUG: Login successful")
         }
     }
