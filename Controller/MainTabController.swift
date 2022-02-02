@@ -12,6 +12,15 @@ class MainTabController: UITabBarController {
     
     //MARK: - Properties
     
+    var user: User? {
+        didSet {
+            guard let nav = viewControllers?[0] as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -50,6 +59,7 @@ class MainTabController: UITabBarController {
         } else {
             configureViewControllers()
             configureUI()
+            fetchUser()
             print("DEBUG: User is logged in")
         }
     }
@@ -60,6 +70,12 @@ class MainTabController: UITabBarController {
             print("DEBUG: Dig log user out")
         } catch {
             print("DEBUG: Failed to sign out with error: \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchUser() {
+        UserService.shared.fetchUser { user in
+            self.user = user
         }
     }
     
