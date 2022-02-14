@@ -22,7 +22,7 @@ class CaptionTextView: UITextView {
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         
-        backgroundColor = .white
+        backgroundColor = .black
         font = UIFont.systemFont(ofSize: 16)
         heightAnchor.constraint(equalToConstant: 300).isActive = true
         
