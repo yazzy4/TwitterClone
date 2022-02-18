@@ -130,6 +130,7 @@ class RegistrationController: UIViewController {
             guard let tab = window.rootViewController as? MainTabController else { return }
             
             tab.authenticateUserAndConfigureUI()
+            print("DEBUG: The tab window \(window) did appear")
                 
             self.dismiss(animated: true, completion: nil)
             print("DEBUG: Sign up successful")
