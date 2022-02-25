@@ -18,6 +18,10 @@ class FeedController: UICollectionViewController {
         didSet { configureLeftBarButton() }
     }
     
+    private var tweets = [Tweet]() {
+        didSet { collectionView.reloadData() }
+    }
+    
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -30,7 +34,8 @@ class FeedController: UICollectionViewController {
     
     func fetchTweets() {
         TweetService.shared.fetchTweets { tweets in
-            print("DEBUG: Tweets are \(tweets)")
+            self.tweets = tweets
+            print("DEBUG: Number of tweets is \(tweets.count)")
         }
     }
     
@@ -40,7 +45,6 @@ class FeedController: UICollectionViewController {
         view.backgroundColor = .white
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
         
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
         imageView.contentMode = .scaleAspectFit
@@ -64,9 +68,12 @@ class FeedController: UICollectionViewController {
 
 }
 
+// MARK: - UICollectionViewDelegate/Datasource
+
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        print("DEBUG: Tweet count at time of collectionView call is \(tweets.count)")
+        return tweets.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,6 +81,8 @@ extension FeedController {
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
