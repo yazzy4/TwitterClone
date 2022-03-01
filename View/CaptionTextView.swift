@@ -15,7 +15,7 @@ class CaptionTextView: UITextView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .darkGray
-        label.text = "testing testing"
+        label.text = "testing "
         return label
     }()
     
