@@ -9,9 +9,19 @@ import Foundation
 import UIKit
 import SwiftUI
 
+protocol ProfileHeaderDelegate: AnyObject {
+    func handleDismissal()
+}
+
 class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Properties
+    
+    var user: User? {
+        didSet { configure() }
+    }
+    
+    weak var delegate: ProfileHeaderDelegate?
     
     private let filterBar = ProfileFilterView()
     
@@ -86,6 +96,8 @@ class ProfileHeader: UICollectionReusableView {
     private let followingLabel: UILabel = {
         let label = UILabel()
         
+        label.text = "0 Following"
+        
         let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped))
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(followTap)
@@ -95,6 +107,8 @@ class ProfileHeader: UICollectionReusableView {
     
     private let followersLabel: UILabel = {
         let label = UILabel()
+        
+        label.text = "2 Followers"
         
         let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
         label.isUserInteractionEnabled = true
@@ -136,7 +150,17 @@ class ProfileHeader: UICollectionReusableView {
         
         addSubview(userDetailsStack)
         userDetailsStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor,
-                                right: rightAnchor, paddingTop: 8, paddingLeft: 12, paddingRight: 12)
+                                right: rightAnchor, paddingTop: 8, paddingLeft: 12,
+                                paddingRight: 12)
+        
+        let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        followStack.axis = .horizontal
+        followStack.spacing = 8
+        followStack.distribution = .fillEqually
+        
+        addSubview(followStack)
+        followStack.anchor(top: userDetailsStack.bottomAnchor, left: leftAnchor,
+                           paddingTop: 8, paddingLeft: 12)
         
         addSubview(filterBar)
         filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
@@ -153,7 +177,7 @@ class ProfileHeader: UICollectionReusableView {
     // MARK: - Selectors
     
     @objc func handleDismissal() {
-        
+        delegate?.handleDismissal()
     }
     
     @objc func handleProfileFollow() {
@@ -167,7 +191,23 @@ class ProfileHeader: UICollectionReusableView {
     @objc func handleFollowingTapped() {
         
     }
+    
+    // MARK: - Helpers
+
+    func configure() {
+        guard let user = user else { return }
+        
+        let viewModel = ProfileHeaderViewModel(user: user)
+        
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        
+        editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        followersLabel.attributedText = viewModel.followersString
+        followingLabel.attributedText = viewModel.followingString
+    }
+
 }
+
 
 // MARK: - ProfileFilterViewDelegate
 
