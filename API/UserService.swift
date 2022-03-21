@@ -18,6 +18,16 @@ struct UserService {
             completion(user)
 
         }
-
+    }
+    
+    func fetchUsers(completion: @escaping([User]) -> Void) {
+        REF_USERS.observe(.childAdded) { snapshot in
+            var users = [User]()
+            let uid = snapshot.key
+            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+            let user = User(uid: uid, dictionary: dictionary)
+            users.append(user)
+            completion(users)
+        }
     }
 }
