@@ -17,12 +17,15 @@ class ExploreController: UITableViewController {
         didSet { tableView.reloadData() }
     }
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         fetchUsers()
+        configureSearchController()
     }
     
     // MARK: - API
@@ -43,7 +46,16 @@ class ExploreController: UITableViewController {
         tableView.rowHeight = 60
         tableView.separatorStyle = .none
     }
+    
+    func configureSearchController() {
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for user"
+        navigationItem.searchController = searchController
+        definesPresentationContext = false 
+    }
 }
+
 
 extension ExploreController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
