@@ -11,6 +11,7 @@ import SwiftUI
 
 protocol ProfileHeaderDelegate: AnyObject {
     func handleDismissal()
+    func handleEditProfileFollow(_ header: ProfileHeader)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -60,7 +61,7 @@ class ProfileHeader: UICollectionReusableView {
         button.layer.borderWidth = 1.25
         button.setTitleColor(.twitterBlue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(handleProfileFollow), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleEditProfileFollow), for: .touchUpInside)
         return button
     }()
     
@@ -178,8 +179,8 @@ class ProfileHeader: UICollectionReusableView {
         delegate?.handleDismissal()
     }
     
-    @objc func handleProfileFollow() {
-        
+    @objc func handleEditProfileFollow() {
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc func handleFollowersTapped() {
