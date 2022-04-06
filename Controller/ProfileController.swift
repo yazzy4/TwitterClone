@@ -63,8 +63,6 @@ class ProfileController: UICollectionViewController {
     
     func fetchUserStats() {
         UserService.shared.fetchUserStats(uid: user.uid) { stats in
-            print("DEBUG: User has \(stats.followers) followers")
-            print("DEBUG: User is following \(stats.following) people")
             
             self.user.stats = stats
             self.collectionView.reloadData()
