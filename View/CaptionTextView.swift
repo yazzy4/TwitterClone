@@ -15,7 +15,7 @@ class CaptionTextView: UITextView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .darkGray
-        label.text = "testing "
+        label.text = "What's happening?"
         return label
     }()
     
@@ -25,7 +25,7 @@ class CaptionTextView: UITextView {
         
         backgroundColor = .white
         font = UIFont.systemFont(ofSize: 16)
-        heightAnchor.constraint(equalToConstant: 300).isActive = true
+        heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: safeAreaLayoutGuide.topAnchor,
